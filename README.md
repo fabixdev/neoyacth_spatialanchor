@@ -17,6 +17,7 @@ This codebase is available both as a reference and as a template for a project t
 
 ## SETUP
 You must follow these instructions first: https://developer.oculus.com/documentation/unity/unity-ssa-sf/
+
 Setup Photon code
 
 ## Documentation
