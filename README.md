@@ -1,14 +1,13 @@
-![Sample Banner](./Media/colocated-block-toss.gif 'Unity SSA Sample')
-
 # Unity-SharedSpatialAnchors
+
+![Sample Banner](./Media/colocated-block-toss.gif 'Unity SSA Sample')
 
 Unity-SharedSpatialAnchors was built to demonstrate how to use the Shared Spatial Anchors API, available in the Meta XR Core SDK for the Unity game engine.
 
 The sample app showcases:
 - Spatial Anchor Creation, Saving, Loading, and Sharing
-- Scene Sharing
 - Automatic Colocation
-- Passthrough Avatars
+- Passthrough
 
 This app uses Photon Unity Networking to share anchor data and support interaction with networked objects in a colocated space.
 
