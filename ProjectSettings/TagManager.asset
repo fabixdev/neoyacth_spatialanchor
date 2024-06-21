@@ -7,6 +7,13 @@ TagManager:
   - vela
   - scafo
   - tappezzeria
+  - porte
+  - tramezzi
+  - pavimento
+  - deck
+  - cucinatop
+  - mobili cucina
+  - tavolo
   layers:
   - Default
   - TransparentFX
