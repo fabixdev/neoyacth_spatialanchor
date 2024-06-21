@@ -5,10 +5,11 @@
 
 Unity-SharedSpatialAnchors was built to demonstrate how to use the Shared Spatial Anchors API, available in the Meta XR Core SDK for the Unity game engine.
 
-The sample app showcases:
-- Spatial Anchor Creation, Saving, Loading, and Sharing
+The app showcases:
+- Spatial Anchor
 - Automatic Colocation
 - Passthrough
+- Product configuration in MR
 
 This app uses Photon Unity Networking to share anchor data and support interaction with networked objects in a colocated space.
 
@@ -16,6 +17,7 @@ This codebase is available both as a reference and as a template for a project t
 
 ## SETUP
 You must follow these instructions first: https://developer.oculus.com/documentation/unity/unity-ssa-sf/
+Setup Photon code
 
 ## Documentation
 
