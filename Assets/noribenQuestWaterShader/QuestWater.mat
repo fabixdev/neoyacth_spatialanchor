@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: QuestWater
-  m_Shader: {fileID: 4800000, guid: 8efddeb3764713247a6a05749a42626e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4147af86f00e99d4fbfc02957f043646, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -35,6 +35,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 8c235d73d794d7240ae0e60873593580, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Cull: 0
@@ -49,6 +53,7 @@ Material:
     - _Transparency: 1
     - _WaveHeight: 0
     - _WaveScale: 1.63
+    - _WaveSpeed: 1
     m_Colors:
     - _Color: {r: 0, g: 0.72590685, b: 1, a: 1}
   m_BuildTextureStacks: []

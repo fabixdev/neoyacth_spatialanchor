@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: textile1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 1c6fa0dd756453a4fb1938bb311d8acd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -43,6 +43,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EnvMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,20 +70,32 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Diffuse: 1
     - _DstBlend: 0
+    - _Fresnel: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NormalPower: 0.2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RefMode: 0
+    - _Reflection: 1
+    - _Scrollx: 0.01
+    - _Scrolly: 0
     - _SmoothnessTextureChannel: 0
+    - _Specular: 0.3
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Transparency: 0.8
     - _UVSec: 0
+    - _WaveHeight: 0.1
+    - _WaveScale: 1
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.690566, g: 0.45540366, b: 0.16026337, a: 1}
