@@ -9,6 +9,9 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
     public string tagName = ""; // The tag to assign and use for material change
     public List<GameObject> excludedObjects; // List of objects to exclude from material change
 
+    // Reference to the AudioSource for playing sound effects
+    public AudioSource audioSource;
+
     private void Start()
     {
         // Initialize the excluded objects list if it's not set
@@ -44,6 +47,16 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
                     if (other.gameObject.CompareTag(tagName) && !excludedObjects.Contains(other.gameObject))
                     {
                         UnityEngine.Debug.Log("Collided with object having tag: " + tagName);
+
+                        // Play the sound effect if audioSource is set
+                        if (audioSource != null)
+                        {
+                            audioSource.Play();
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.Log("AudioSource is not set.");
+                        }
 
                         // Get the MeshRenderer of the object we collided with
                         MeshRenderer targetMeshRenderer = other.gameObject.GetComponent<MeshRenderer>();
