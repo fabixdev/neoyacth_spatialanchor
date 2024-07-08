@@ -5,17 +5,12 @@ using System.Collections.Generic;
 public class DraggableSphere : MonoBehaviourPunCallbacks
 {
     public GameObject ChiDaIlColore;
-    public string tagName = "";
-    public List<GameObject> excludedObjects;
+    public string tagName = ""; // Tag per gli oggetti di interesse
+    public string excludedObjectTags = ""; // Tag per oggetti esclusi
     public AudioSource audioSource;
 
     private void Start()
     {
-        if (excludedObjects == null)
-        {
-            excludedObjects = new List<GameObject>();
-        }
-
         if (ChiDaIlColore != null && !string.IsNullOrEmpty(tagName))
         {
             ChiDaIlColore.tag = tagName;
@@ -35,7 +30,7 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
 
             if (sourceMeshRenderer != null)
             {
-                if (other.gameObject.CompareTag(tagName) && !excludedObjects.Contains(other.gameObject))
+                if (other.gameObject.CompareTag(tagName) && !IsExcluded(other.gameObject))
                 {
                     UnityEngine.Debug.Log("Collided with object having tag: " + tagName);
 
@@ -70,7 +65,7 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    UnityEngine.Debug.Log("Collided object does not have the specified tag or is excluded: " + tagName);
+                    UnityEngine.Debug.Log("Collided object does not have the specified tag or is excluded: " + other.gameObject.name);
                 }
             }
             else
@@ -84,6 +79,20 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
         }
     }
 
+    private bool IsExcluded(GameObject obj)
+    {
+        string[] excludedTags = excludedObjectTags.Split(',');
+
+        foreach (string excludedTag in excludedTags)
+        {
+            if (obj.CompareTag(excludedTag.Trim()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     [PunRPC]
     private void RequestMaterialTransfer(int targetViewID, string materialName)
     {
@@ -92,7 +101,6 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
         if (targetPhotonView != null)
         {
             photonView.RPC("TransferMaterial", RpcTarget.AllBuffered, targetViewID, materialName);
-            photonView.RPC("TransferMaterialToAllWithTag", RpcTarget.AllBuffered, materialName);
         }
         else
         {
@@ -109,7 +117,7 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
         {
             GameObject targetObject = targetPhotonView.gameObject;
 
-            if (targetObject != null && !excludedObjects.Contains(targetObject))
+            if (targetObject != null && targetObject.CompareTag(tagName) && !IsExcluded(targetObject))
             {
                 MeshRenderer targetMeshRenderer = targetObject.GetComponent<MeshRenderer>();
                 MeshRenderer sourceMeshRenderer = ChiDaIlColore.GetComponent<MeshRenderer>();
@@ -136,62 +144,12 @@ public class DraggableSphere : MonoBehaviourPunCallbacks
             }
             else
             {
-                UnityEngine.Debug.Log("Target object is in the excluded list: " + targetObject.name);
+                UnityEngine.Debug.Log("Target object is in the excluded list or does not have the specified tag: " + targetObject.name);
             }
         }
         else
         {
             UnityEngine.Debug.Log("The target object is not valid.");
-        }
-    }
-
-    [PunRPC]
-    private void TransferMaterialToAllWithTag(string materialName)
-    {
-        MeshRenderer sourceMeshRenderer = ChiDaIlColore.GetComponent<MeshRenderer>();
-        Material sourceMaterial = null;
-
-        if (sourceMeshRenderer != null)
-        {
-            foreach (Material mat in sourceMeshRenderer.materials)
-            {
-                if (mat.name == materialName)
-                {
-                    sourceMaterial = mat;
-                    break;
-                }
-            }
-        }
-
-        if (sourceMaterial != null)
-        {
-            GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tagName);
-
-            foreach (GameObject obj in taggedObjects)
-            {
-                if (!excludedObjects.Contains(obj))
-                {
-                    MeshRenderer targetMeshRenderer = obj.GetComponent<MeshRenderer>();
-
-                    if (targetMeshRenderer != null)
-                    {
-                        targetMeshRenderer.material = sourceMaterial;
-                        UnityEngine.Debug.Log("Material " + materialName + " assigned to object with tag: " + obj.name);
-                    }
-                    else
-                    {
-                        UnityEngine.Debug.Log("The GameObject " + obj.name + " does not have a MeshRenderer.");
-                    }
-                }
-                else
-                {
-                    UnityEngine.Debug.Log("Object is in the excluded list: " + obj.name);
-                }
-            }
-        }
-        else
-        {
-            UnityEngine.Debug.Log("Source material is not valid.");
         }
     }
 }
