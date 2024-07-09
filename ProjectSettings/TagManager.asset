@@ -15,6 +15,16 @@ TagManager:
   - mobili cucina
   - tavolo
   - sferas
+  - vela2
+  - cucinadown
+  - sanitari
+  - bagnolavandino
+  - luci
+  - timone
+  - passerella
+  - winches
+  - albero
+  - pensili
   layers:
   - Default
   - TransparentFX
