@@ -25,6 +25,7 @@ TagManager:
   - pensili
   - sanitari
   - tamponideck
+  - corepannel
   layers:
   - Default
   - TransparentFX
