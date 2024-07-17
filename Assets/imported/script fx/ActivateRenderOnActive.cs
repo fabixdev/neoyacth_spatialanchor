@@ -4,24 +4,22 @@ using UnityEngine;
 public class ActivateRenderOnActive : MonoBehaviour
 {
     public GameObject[] chiattivo; // Lista di GameObject da controllare
-    public Material coloreTemporaneo; // Materiale temporaneo per i GameObject attivi
-    public string[] tagsSelezionati; // Array di tag selezionati per cui cambiare materiale
+    public string[] tagsSelezionati; // Array di tag selezionati per spegnere i GameObject
 
-    private Dictionary<GameObject, Material> originalMaterials; // Dizionario per conservare i materiali originali
+    private Dictionary<GameObject, bool> originalActiveStates; // Dizionario per conservare gli stati attivi originali
 
     void Start()
     {
-        // Conserva i materiali originali dei GameObject con i tag selezionati
-        originalMaterials = new Dictionary<GameObject, Material>();
+        // Conserva gli stati attivi originali dei GameObject con i tag selezionati
+        originalActiveStates = new Dictionary<GameObject, bool>();
         foreach (string tag in tagsSelezionati)
         {
             GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
             foreach (GameObject taggedObject in taggedObjects)
             {
-                Renderer renderer = taggedObject.GetComponent<Renderer>();
-                if (renderer != null && !originalMaterials.ContainsKey(taggedObject))
+                if (!originalActiveStates.ContainsKey(taggedObject))
                 {
-                    originalMaterials[taggedObject] = renderer.material;
+                    originalActiveStates[taggedObject] = taggedObject.activeSelf;
                 }
             }
         }
@@ -33,40 +31,32 @@ public class ActivateRenderOnActive : MonoBehaviour
         {
             if (go.activeInHierarchy)
             {
-                ChangeTaggedObjectMaterials(coloreTemporaneo);
+                DeactivateTaggedObjects();
                 return; // Esce dal metodo una volta che trova un GameObject attivo
             }
         }
 
-        // Se nessun GameObject è attivo, ripristina i materiali originali
-        ResetTaggedObjectMaterials();
+        // Se nessun GameObject è attivo, ripristina gli stati attivi originali
+        ResetTaggedObjectActiveStates();
     }
 
-    void ChangeTaggedObjectMaterials(Material newMaterial)
+    void DeactivateTaggedObjects()
     {
         foreach (string tag in tagsSelezionati)
         {
             GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag(tag);
             foreach (GameObject taggedObject in taggedObjects)
             {
-                Renderer renderer = taggedObject.GetComponent<Renderer>();
-                if (renderer != null)
-                {
-                    renderer.material = newMaterial;
-                }
+                taggedObject.SetActive(false);
             }
         }
     }
 
-    void ResetTaggedObjectMaterials()
+    void ResetTaggedObjectActiveStates()
     {
-        foreach (var kvp in originalMaterials)
+        foreach (var kvp in originalActiveStates)
         {
-            Renderer renderer = kvp.Key.GetComponent<Renderer>();
-            if (renderer != null)
-            {
-                renderer.material = kvp.Value;
-            }
+            kvp.Key.SetActive(kvp.Value);
         }
     }
 }
